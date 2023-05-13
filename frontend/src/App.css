@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Work+Sans:wght@300&display=swap');
 
-.App{
+.App {
     min-height: 100vh;
     display: flex;
-    background-image: url("./background-chat.png");
+    /* background-image: url("./background-chat.png"); */
+    background-color: #a7bcff;
     background-position: center;
     background-size: cover;
     color: black;

@@ -2,17 +2,24 @@ import React from 'react'
 import { Box, Container, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import Login from '../components/Authentication/Login';
 import SignUp from '../components/Authentication/SignUp';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { useEffect } from "react";
 //if something goes wrong here remeber to change location of useHistory
 const Homepage = () => {
 
+
   // eslint-disable-next-line
   const history = useHistory();
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
 
-    if (!user) history.push("/chats");
+
+    if (user) {
+      // history.push("/chats");
+
+    }
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);

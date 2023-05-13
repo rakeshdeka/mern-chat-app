@@ -4,9 +4,12 @@ import SideDrawer from "../components/miscellaneous/SideDrawer";
 import MyChats from "../components/MyChats";
 import Chatbox from "../components/Chatbox";
 
+
 const ChatPage = () => {
 
+
     const { user } = ChatState();
+
     return (
         <div style={{ width: "100%" }}>
             {user && <SideDrawer />}

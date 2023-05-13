@@ -5,7 +5,7 @@ import { VStack } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -70,7 +70,7 @@ const Signup = () => {
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
       setPicLoading(false);
-      history.push("/chats");
+      history.push("/");
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -96,12 +96,13 @@ const Signup = () => {
       });
       return;
     }
-    console.log(pics);
+    console.log("Pic Console", pics);
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      console.log("Pic Console INside");
       const data = new FormData();
       data.append("file", pics);
-      data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "piyushproj");
+      data.append("upload_preset", "ChatApp");
+      data.append("cloud_name", "dfn48e0hd");
       fetch("https://api.cloudinary.com/v1_1/dfn48e0hd/image/upload", {
         method: "post",
         body: data,
