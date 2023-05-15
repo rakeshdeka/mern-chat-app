@@ -25,7 +25,7 @@ const ProfileModal = ({ user, children }) => {
                 <span onClick={onOpen}>{children}</span>
             ) : (
                 <IconButton
-                    display={{ base: "felx" }}
+                    display={{ base: "flex" }}
                     icon={<ViewIcon />}
                     onClick={onOpen}
                 />
@@ -37,7 +37,7 @@ const ProfileModal = ({ user, children }) => {
                     <ModalHeader
                         fontSize="40px"
                         fontFamily="Work sans"
-                        d="flex"
+                        display="flex"
                         justifyContent="center"
                     >{user.name}</ModalHeader>
                     <ModalCloseButton />

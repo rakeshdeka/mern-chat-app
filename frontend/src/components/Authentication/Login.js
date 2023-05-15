@@ -103,7 +103,7 @@ const Login = () => {
         </InputGroup>
       </FormControl>
       <Button
-        colorScheme="blue"
+        bgColor="#7b96ec"
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
