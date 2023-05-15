@@ -9,16 +9,21 @@ import UpdateGroupChatModal from './miscellaneous/UpdateGroupChatModal'
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react';
 import ScrollableChat from './ScrollableChat';
-
 import { FormControl, Input, Spinner } from '@chakra-ui/react';
 import './styles.css'
+import io from 'socket.io-client'
+
+const ENDPOINT = 'http://localhost:5000';
+
+
+var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState("");
-    // const [socketConnected, setSocketConnected] = useState(false);
+    const [socketConnected, setSocketConnected] = useState(false);
     // const [typing, setTyping] = useState(false);
     // const [istyping, setIsTyping] = useState(false);
     const toast = useToast();
@@ -46,7 +51,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             setMessages(data);
             setLoading(false);
 
-            // socket.emit("join chat", selectedChat._id);
+            socket.emit("join chat", selectedChat._id);
         } catch (error) {
             toast({
                 title: "Error Occured!",
@@ -60,9 +65,39 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
 
     // Error: React Hook useEffect has a missing dependency: 'fetchMessages'.Either include it or remove the dependency array 
+
+    useEffect(() => {
+        socket = io(ENDPOINT);
+        socket.emit("setup", user);
+        socket.on('connection', () => socketConnected(true))
+    }, [])
+
+
     useEffect(() => {
         fetchMessages();
+        selectedChatCompare = selectedChat;
+
     }, [selectedChat])
+
+    useEffect(() => {
+        socket.on("message recieved", (newMessageRecieved) => {
+            if (
+                !selectedChatCompare || // if chat is not selected or doesn't match current chat
+                selectedChatCompare._id !== newMessageRecieved.chat._id
+            ) {
+                //     if (!notification.includes(newMessageRecieved)) {
+                //         setNotification([newMessageRecieved, ...notification]);
+                //         setFetchAgain(!fetchAgain);
+                //     }
+            } else {
+                setMessages([...messages, newMessageRecieved]);
+            }
+        });
+    });
+
+
+
+
 
 
     const sendMessage = async (event) => {
@@ -85,6 +120,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 );
                 console.log(data);
 
+                socket.emit('new message', data);
+
                 setMessages([...messages, data]);
 
             } catch (error) {
@@ -100,6 +137,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             }
         }
     }
+
+
+
     const typingHandler = (e) => {
 
         setNewMessage(e.target.value);
