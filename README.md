@@ -23,11 +23,11 @@ Install dependencies
   npm install
 ```
 Create .env file and and include
-``
+```bash
 PORT=  your port no
 MONGOI_URL= 'your mongo url key with username and password'
 JWT_SECRET=your_key
-``
+```
 
 Start the server
 
