@@ -43,6 +43,36 @@ const Signup = () => {
       });
       return;
     }
+
+    //email validation
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(email)) {
+      toast({
+        title: "Invalid Email Address",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+
+
+    // Password strength validation (optional)
+    // const passwordRegex = /your-regex-pattern/;
+    // if (!passwordRegex.test(password)) {
+    //   toast({
+    //     title: "Invalid Password",
+    //     status: "warning",
+    //     duration: 5000,
+    //     isClosable: true,
+    //     position: "bottom",
+    //   });
+    //   return;
+    // }
+
+
+
     console.log(name, email, password, pic);
     try {
       const config = {
