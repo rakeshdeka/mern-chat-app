@@ -1,10 +1,11 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
+// console.log("process.env.JWT_SECRET",process.env.JWT_SECRET);
+JWT_SECRET = "rakesh123"; // this needs to be in .env but not getting from .env
 
-const generateToken =(id)=>{
+const generateToken = (id) => {
+  return jwt.sign({ id }, JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
 
-    return jwt.sign({id},process.env.JWT_SECRET,{
-        expiresIn: "30d",
-    })
-}
-
-module.exports= generateToken;
+module.exports = generateToken;
